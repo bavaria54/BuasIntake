@@ -1,0 +1,20 @@
+﻿  game.cpp
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(45,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(46,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(50,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(51,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(55,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(56,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(60,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(61,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(78,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(79,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(93,59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(163,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(163,38): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Player.cpp
+  Enemy.cpp
+  surface.cpp
+  template.cpp
+  Generating Code...
+  tmpl_2019-08.vcxproj -> C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64.exe
