@@ -1,25 +1,6 @@
 ﻿  enemy.cpp
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(7,5): error C2888: 'void Enemy::Reposition(void)': symbol cannot be defined within namespace 'Tmpl8'
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(11,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(12,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(16,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(17,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(21,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(22,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(26,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(27,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(33,2): error C2888: 'void Enemy::Refresh(void)': symbol cannot be defined within namespace 'Tmpl8'
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(36,3): error C2065: 'Reposition': undeclared identifier
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(40,2): error C2888: 'void Enemy::Collision(void)': symbol cannot be defined within namespace 'Tmpl8'
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(45,2): error C2888: 'void Enemy::Move(int,int)': symbol cannot be defined within namespace 'Tmpl8'
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(52,2): error C2888: 'float Enemy::GetDistance(void)': symbol cannot be defined within namespace 'Tmpl8'
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(57,2): error C2888: 'bool Enemy::isAlive(void)': symbol cannot be defined within namespace 'Tmpl8'
-  game.cpp
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(64,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(65,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(79,59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(146,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(146,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(151,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(151,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
+  tmpl_2019-08.vcxproj -> C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64_debug.exe

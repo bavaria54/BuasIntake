@@ -8,23 +8,23 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		screenpos = IRand(4); //New screenpos to spawn from
 		switch (screenpos) {
 		case 0: //Leftside screen spawn
-			x = -32 - IRand(50);
+			x = -64;
 			y = IRand(ScreenHeight);
 			break;
 
 		case 1: //Rightside screen spawn
-			x = -50 + ScreenWidth + IRand(50);
+			x = ScreenWidth;
 			y = IRand(ScreenHeight);
 			break;
 
 		case 2: //Topside screen spawn
 			x = IRand(ScreenWidth);
-			y = -32 - IRand(50);
+			y = -64;
 			break;
 
 		case 3: //Bottomside screen spawn
 			x = IRand(ScreenWidth);
-			y = -50 + ScreenHeight + IRand(50);
+			y = ScreenHeight;
 			break;
 		}
     }
@@ -36,9 +36,22 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		Reposition();
 	}
 
-	void Enemy::Collision()
+	void Enemy::Collision(Enemy &enemy)
 	{
-		// WIP I tried to get the code that makes my enemies overlap less in here, but I couldn't get it to work.
+		float jdx = x - enemy.x, jdy = y - enemy.y;
+		float jdist = sqrtf(jdx * jdx + jdy * jdy);
+
+		if (jdist < 48 && enemy.alive == true)
+		{
+			if (enemy.x > enemy.x){
+				x -= 1; enemy.x += 1;}
+			if (enemy.x < x){
+				x += 1; enemy.x -= 1;}
+			if (enemy.y > y){
+				y -= 1; enemy.y += 1;}
+			if (enemy.y < y){
+				y += 1; enemy.y -= 1;}
+		}
 	}
 
 	void Enemy::Move(int player_drawx, int player_drawy)
@@ -48,13 +61,20 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		x -= dx / dist, y -= dy / dist;
 	}
 
-	float Enemy::GetDistance()
+	float Enemy::GetDistance(int targetX, int targetY)
 	{
+		float dx = x - targetX, dy = y - targetY;
+		float dist = sqrtf(dx * dx + dy * dy);
 		return dist;
 	}
 
 	bool Enemy::isAlive()
 	{
 		return alive;
+	}
+
+	void Enemy::isKilled()
+	{
+		alive = false;
 	}
 }

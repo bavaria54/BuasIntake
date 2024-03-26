@@ -333,7 +333,7 @@ void Surface::InitCharset()
 	SetChar(44, "::o::", ":::o:", ":::o:", ":::o:", "::o::" );
 	SetChar(45, ":::::", ":::::", ":::::", ":::::", ":::::" );
 	SetChar(46, "ooooo", "ooooo", "ooooo", "ooooo", "ooooo" );
-	SetChar(47, "::o::", "::o::", ":::::", ":::::", ":::::" ); // Tnx Ferry
+	SetChar(47, "::o::", "::o::", ":::::", ":::::", ":::::" ); // Tnx Ferry WHO DA FOOK IS DA
 	SetChar(48, "o:o:o", ":ooo:", "ooooo", ":ooo:", "o:o:o" );
 	SetChar(49, "::::o", ":::o:", "::o::", ":o:::", "o::::" );
 	char c[] = "abcdefghijklmnopqrstuvwxyz0123456789!?:=,.-() #'*/";

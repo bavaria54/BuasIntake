@@ -2,7 +2,6 @@
 #include "surface.h"
 #include "template.h"
 
-
 namespace Tmpl8  //Everything else does this, I copy it.
 {
     class Player
@@ -14,13 +13,20 @@ namespace Tmpl8  //Everything else does this, I copy it.
             y = ScreenHeight / 2;   // Centers my character's starting point to the center of the vertical plane (Y)
             maxhealth = 100;
             currenthealth = maxhealth;
-            damage = 10;
             healthpercentage = (currenthealth / maxhealth);
             healthcolor = 0;
-            speed = 2;
+            speed = 1.8;
+            level = 1;
+            experience = 0;
+            attackSpeed = 1.0f;
+            attackFrame = 0;
+            attackInterval = 165*2;
+            pickupRange = 150;
+            damageMultiplier = 1.0f;
         }
         void Refresh();
+        void LevelUp();
         bool isDead();
-        int x; int y; float maxhealth; float currenthealth; int damage; float healthpercentage; int healthcolor; int speed; // so my variables know what they are
+        int x; int y; float maxhealth; float currenthealth; float damageMultiplier; float healthpercentage; int healthcolor; float speed; int level; float experience; float attackSpeed; int attackFrame; int attackInterval; int pickupRange;// so my variables know what they are
     };
 }

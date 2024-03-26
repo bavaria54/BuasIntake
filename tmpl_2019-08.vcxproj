@@ -225,13 +225,17 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="pickup_experience.cpp" />
+    <ClCompile Include="projectile_fireball.cpp" />
     <ClCompile Include="surface.cpp" />
     <ClCompile Include="template.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="pickup_experience.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="projectile_fireball.h" />
     <ClInclude Include="surface.h" />
     <ClInclude Include="template.h" />
   </ItemGroup>

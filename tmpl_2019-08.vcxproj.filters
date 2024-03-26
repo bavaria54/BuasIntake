@@ -14,6 +14,12 @@
     <ClCompile Include="enemy.cpp">
       <Filter>my code</Filter>
     </ClCompile>
+    <ClCompile Include="pickup_experience.cpp">
+      <Filter>my code</Filter>
+    </ClCompile>
+    <ClCompile Include="projectile_fireball.cpp">
+      <Filter>my code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -27,6 +33,12 @@
       <Filter>my code</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
+      <Filter>my code</Filter>
+    </ClInclude>
+    <ClInclude Include="pickup_experience.h">
+      <Filter>my code</Filter>
+    </ClInclude>
+    <ClInclude Include="projectile_fireball.h">
       <Filter>my code</Filter>
     </ClInclude>
   </ItemGroup>
