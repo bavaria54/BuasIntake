@@ -1,6 +1,5 @@
-﻿  enemy.cpp
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(12,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(17,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(21,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Tutotorial projects BUAS\18. My Own Game\enemy.cpp(26,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+﻿  player.cpp
+pickup_experience.obj : warning LNK4099: PDB '' was not found with 'pickup_experience.obj' or at ''; linking object as if no debug info
+surface.obj : warning LNK4099: PDB '' was not found with 'surface.obj' or at ''; linking object as if no debug info
+template.obj : warning LNK4099: PDB '' was not found with 'template.obj' or at ''; linking object as if no debug info
   tmpl_2019-08.vcxproj -> C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64_debug.exe

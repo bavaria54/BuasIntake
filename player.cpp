@@ -1,7 +1,7 @@
 #include "player.h"
 
 
-namespace Tmpl8  //Everything else does this, I copy it.
+namespace Tmpl8
 {
 	void Player::Refresh()
 	{
@@ -14,20 +14,32 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		experience = 0;
 		attackSpeed = 1.0f;
 		attackFrame = 0;
-		attackInterval = 165 * 2;
+		attackInterval = 165 * 1;
 		damageMultiplier = 1.0f;
 	}
 
-	void Player::LevelUp() //Increase some stats for now, later skills
+	void Player::LevelUp(int levelupID) // 1= Attackspeed, 2 = Damage, 3 = Health & Speed
 	{
-		maxhealth += 10;
-		currenthealth += 10;
-		speed += 0.1;
-		attackSpeed += 0.15;
-		experience -= level*100;
-		level++;
-		attackFrame = 0;
-		damageMultiplier += 0.05f;
+		switch (levelupID) 
+		{
+		case 1: //Levelup Attackspeed
+			attackSpeed += 0.5f;
+			experience -= level * 100;
+			level += 1;
+			break;
+		case 2: //Levelup Damage
+			damageMultiplier += 0.5f;
+			experience -= level * 100;
+			level += 1;
+			break;
+		case 3: //Levelup Health & Speed
+			maxhealth += 50;
+			currenthealth += 50;
+			speed += 0.4;
+			experience -= level * 100;
+			level += 1;
+			break;
+		}
 	}
 
 	bool Player::isDead()

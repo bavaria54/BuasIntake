@@ -1,5 +1,3 @@
-#pragma once
-
 #include "template.h"
 
 namespace Tmpl8  //Everything else does this, I copy it.
@@ -12,7 +10,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
             x = 0;
             y = 0;
             alive = false;
-            speed = 5;
+            speed = 3;
             damage = 35;
             dx = 1.0f;
             dy = 2.0f;
@@ -20,6 +18,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
         }
         float dx; float dy; float dist; int speed; float x; float y; int damage; bool alive;
         void Move();
+        bool Collision(int targetX, int targetY);
         void SetDirection(float nearestEnemyX, float nearestEnemyY);
     };
 }

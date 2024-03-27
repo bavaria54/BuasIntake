@@ -25,7 +25,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
             damageMultiplier = 1.0f;
         }
         void Refresh();
-        void LevelUp();
+        void LevelUp(int levelupID);
         bool isDead();
         int x; int y; float maxhealth; float currenthealth; float damageMultiplier; float healthpercentage; int healthcolor; float speed; int level; float experience; float attackSpeed; int attackFrame; int attackInterval; int pickupRange;// so my variables know what they are
     };

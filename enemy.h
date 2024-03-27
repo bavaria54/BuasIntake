@@ -9,7 +9,8 @@ namespace Tmpl8  //Everything else does this, I copy it.
         {
             x = 0;
             y = 0;
-            health = 100.0f;
+            maxhealth = 100.0f;
+            health = maxhealth;
             damage = 1.0f;
             screenpos = IRand(4); //Random value so I know where to put the enemy.
             alive = false;
@@ -22,6 +23,6 @@ namespace Tmpl8  //Everything else does this, I copy it.
         void isKilled();
         void Move(int player_drawx, int player_drawy);
         bool isAlive();
-        float x; float y; float health; float damage; int screenpos; bool alive; float dist;// so my variables know what they are
+        float x; float y; float health; float damage; int screenpos; bool alive; float dist; float maxhealth;// so my variables know what they are
     };
 }

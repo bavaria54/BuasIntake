@@ -1,4 +1,3 @@
-#include "template.h"
 #include "enemy.h"
 
 namespace Tmpl8  //Everything else does this, I copy it.
@@ -76,5 +75,6 @@ namespace Tmpl8  //Everything else does this, I copy it.
 	void Enemy::isKilled()
 	{
 		alive = false;
+		health = maxhealth;
 	}
 }
