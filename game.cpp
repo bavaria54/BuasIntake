@@ -36,18 +36,21 @@ namespace Tmpl8
 	float nearestEnemyDist = 9999;
 	int nearestEnemyID = 0;
 
-	Pickup_Exp pickup_exp[enemyAmount*3]; //I need to find a more efficient way to do these things...
+	Pickup_Exp pickup_exp[enemyAmount * 3]; //I need to find a more efficient way to do these things...
 	int pickupExpCount = 0;			//Pickups on screen will be counted
 
 	int keyUp = 0;					//Checks if certain keypress is released
 
-	Sprite sprite_player(new Surface("assets/player_wizard.png"), 2);	 
-	Sprite sprite_enemy(new Surface("assets/enemy_wizard.png"), 2);		 
+	Sprite sprite_player(new Surface("assets/player_wizard.png"), 2);
+	Sprite sprite_enemy(new Surface("assets/enemy_wizard.png"), 2);
 	Sprite sprite_pickup_exp(new Surface("assets/BlueExpRupee.tga"), 12);
 	Sprite sprite_projectile_fireball(new Surface("assets/fireball.tga"), 1);
 	Sprite sprite_startscreen(new Surface("assets/start_screen.tga"), 1);
 	Sprite sprite_levelupscreen(new Surface("assets/levelup_screen.tga"), 1);
-	
+	Sprite sprite_upgrade_damage(new Surface("assets/upgrade_damage.png"), 2);
+	Sprite sprite_upgrade_healthspeed(new Surface("assets/upgrade_healthspeed.png"), 2);
+	Sprite sprite_upgrade_attackspeed(new Surface("assets/upgrade_attackspeed.png"), 2);
+
 	//Handles animation speed for xp rupees
 	int spriteSpeed = 8; //Higher is slower, every 8 frames, go next.
 	int spriteCycle = 0;
@@ -59,7 +62,7 @@ namespace Tmpl8
 	void Game::Init()
 	{
 	}
-	
+
 	void Game::Shutdown()
 	{
 	}
@@ -71,7 +74,8 @@ namespace Tmpl8
 	{
 		screen->Clear(0xaaa0a0); // clear the graphics window
 
-		if (gamePaused == 0) // gameloop
+		// gameloop
+		if (gamePaused == 0)
 		{
 			// Makes the sprite of XP animate
 			if (spriteCycle++ > spriteSpeed) { spriteNum++;  spriteCycle = 0; }
@@ -136,7 +140,6 @@ namespace Tmpl8
 			player.healthpercentage = player.currenthealth / player.maxhealth;	// Update player HP bar percentage && Color
 			screen->Bar(player_drawx, player_drawy - 16, (player_drawx + sprite_player.GetWidth() * player.healthpercentage), player_drawy - 8, player.healthcolor);	// Healthbar percentage = length
 			screen->Box(player_drawx - 1, player_drawy - 17, player_drawx + sprite_player.GetWidth() + 1, player_drawy - 7, 0); // Black box around HP bar
-
 
 
 			//ENEMY LOOP============================================================================================================================================================================
@@ -272,9 +275,9 @@ namespace Tmpl8
 
 					for (int j = 0; j < enemyAmount; j++)
 					{
-						if (projectile[i].Collision(enemy[j].x, enemy[j].y)) // If I collide with an enemy, then deal damage and fizzle
+						if (projectile[i].Collision(enemy[j].x, enemy[j].y) && enemy[j].alive == true) // If I collide with an enemy, then deal damage and fizzle
 						{
-							enemy[j].health -= projectile[i].damage;
+							enemy[j].health -= projectile[i].damage * player.damageMultiplier;
 							projectile[i].alive = false;
 						}
 					}
@@ -338,7 +341,7 @@ namespace Tmpl8
 					{
 						pickup_exp[i].magnet = true;
 						if (pickup_exp[i].GetDistance() < 16) {
-							pickup_exp[i].isPickedUp(); player.experience += 10; pickup_exp[i].magnet = false;
+							pickup_exp[i].isPickedUp(); player.experience += pickup_exp[i].xpValue; pickup_exp[i].magnet = false;
 						} //If player touches xp, it picks the XP up.
 					}
 
@@ -410,24 +413,84 @@ namespace Tmpl8
 			}
 			screen->Box(0, 0, ScreenWidth - 1, 17, 0x000000); //Draw XP bar black outline
 		}
-		if (gamePaused == 1) //startscreen pause
+		//startscreen pause
+		if (gamePaused == 1)
 		{
-			sprite_startscreen.Draw(screen, (ScreenWidth/2) - (sprite_startscreen.GetWidth()/2), (ScreenHeight / 2) - (sprite_startscreen.GetHeight() / 2));
+			sprite_startscreen.Draw(screen, (ScreenWidth / 2) - (sprite_startscreen.GetWidth() / 2), (ScreenHeight / 2) - (sprite_startscreen.GetHeight() / 2));
 			if (GetAsyncKeyState(0x0001) || GetAsyncKeyState(0x0002)) // if either left or right mousebutton is clicked
 			{
 				gamePaused = 0;
 			}
 		}
-		if (gamePaused == 2) //levelup pause
+		//levelup pause
+		if (gamePaused == 2)
 		{
 			sprite_levelupscreen.Draw(screen, (ScreenWidth / 2) - (sprite_levelupscreen.GetWidth() / 2), (ScreenHeight / 2) - (sprite_levelupscreen.GetHeight() / 2));
-			if (GetAsyncKeyState(0x0001)) // if either left or right mousebutton is clicked
+
+			int hitbox1X = (ScreenWidth / 2) - (sprite_levelupscreen.GetWidth() / 2) + 2;
+			int hitbox1XX=(hitbox1X + sprite_upgrade_attackspeed.GetWidth());
+			int hitbox1Y = (ScreenHeight / 2) - (sprite_levelupscreen.GetHeight() / 2) + 98;
+			int hitbox1YY= (hitbox1Y + sprite_upgrade_attackspeed.GetHeight());
+			int hitbox2X = (ScreenWidth / 2) - (sprite_levelupscreen.GetWidth() / 2) + 112;
+			int hitbox2XX= (hitbox2X + sprite_upgrade_attackspeed.GetWidth());
+			int hitbox2Y = (ScreenHeight / 2) - (sprite_levelupscreen.GetHeight() / 2) + 98;
+			int hitbox2YY = (hitbox2Y + sprite_upgrade_attackspeed.GetHeight());
+			int hitbox3X = (ScreenWidth / 2) - (sprite_levelupscreen.GetWidth() / 2) + 221;
+			int hitbox3XX= (hitbox3X + sprite_upgrade_attackspeed.GetWidth());
+			int hitbox3Y = (ScreenHeight / 2) - (sprite_levelupscreen.GetHeight() / 2) + 98;
+			int hitbox3YY = (hitbox3Y + sprite_upgrade_attackspeed.GetHeight());
+
+			if (debug == true) // Draw Click Hitbox
 			{
-				player.LevelUp(1);
-				player.LevelUp(2);
-				player.LevelUp(3);
-				gamePaused = 0;
+				screen->Box(hitbox1X, hitbox1Y, hitbox1XX, hitbox1YY, 0);
+				screen->Box(hitbox2X, hitbox2Y, hitbox2XX, hitbox2YY, 0);
+				screen->Box(hitbox3X, hitbox3Y, hitbox3XX, hitbox3YY, 0);
+
+				screen->Line(mousex, 0, mousex, ScreenHeight, 0xff0000); //line mouse
+				screen->Line(0, mousey, ScreenWidth, mousey, 0xff0000); //line mouse
 			}
+
+			sprite_upgrade_attackspeed.Draw(screen, hitbox1X, hitbox1Y);
+			sprite_upgrade_damage.Draw(screen, hitbox2X, hitbox2Y);
+			sprite_upgrade_healthspeed.Draw(screen, hitbox3X, hitbox3Y);
+
+
+			if ((mousex > hitbox1X) && (mousex < hitbox1XX) && (mousey > hitbox1Y) && (mousey < hitbox1YY))
+			{	
+				sprite_upgrade_attackspeed.SetFrame(1);
+				if((GetKeyState(VK_LBUTTON) & 0x8000) != 0) // if left is clicked in certain hitbox
+				{
+					player.LevelUp(1);
+					gamePaused = 0;
+				}
+			}
+			else { sprite_upgrade_attackspeed.SetFrame(0); }
+
+
+			if ((mousex > hitbox2X) && (mousex < hitbox2XX) && (mousey > hitbox2Y) && (mousey < hitbox2YY))
+			{
+				sprite_upgrade_damage.SetFrame(1);
+				if ((GetKeyState(VK_LBUTTON) & 0x8000) != 0) // if left is clicked in certain hitbox
+				{
+					sprite_upgrade_damage.Draw(screen, hitbox1X, hitbox1Y);
+					player.LevelUp(2);
+					gamePaused = 0;
+				}
+			}
+			else { sprite_upgrade_damage.SetFrame(0); }
+
+
+			if ((mousex > hitbox3X) && (mousex < hitbox3XX) && (mousey > hitbox3Y) && (mousey < hitbox3YY))
+			{
+				sprite_upgrade_healthspeed.SetFrame(1);
+				if ((GetKeyState(VK_LBUTTON) & 0x8000) != 0) // if left is clicked in certain hitbox
+				{
+					sprite_upgrade_healthspeed.Draw(screen, hitbox1X, hitbox1Y);
+					player.LevelUp(3);
+					gamePaused = 0;
+				}
+			}
+			else { sprite_upgrade_healthspeed.SetFrame(0); }
 		}
 	}
-} 
+}

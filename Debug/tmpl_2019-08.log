@@ -1,5 +1,42 @@
-﻿  player.cpp
-pickup_experience.obj : warning LNK4099: PDB '' was not found with 'pickup_experience.obj' or at ''; linking object as if no debug info
+﻿  game.cpp
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(91,32): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(94,121): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(94,91): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(94,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(94,38): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(128,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(129,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(141,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(214,56): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(222,56): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(230,56): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(238,56): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(244,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(244,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(248,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(248,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(268,83): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(268,62): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(278,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(278,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(292,61): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(300,61): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(308,61): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(316,61): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(338,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(338,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(360,61): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(368,61): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(376,61): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(384,61): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(394,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(395,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(412,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(449,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(449,18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(450,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(450,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  player.cpp
+  Generating Code...
 surface.obj : warning LNK4099: PDB '' was not found with 'surface.obj' or at ''; linking object as if no debug info
-template.obj : warning LNK4099: PDB '' was not found with 'template.obj' or at ''; linking object as if no debug info
   tmpl_2019-08.vcxproj -> C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64_debug.exe
