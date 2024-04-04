@@ -4,11 +4,14 @@
 #include "projectile_fireball.h"
 #include "pickup_experience.h"
 #include "surface.h"
-#include "algorithm" //Quick maffs
+#include <algorithm> //Quick maffs
 #include "template.h"
 #include <iostream> 
+#include <string>
 #define WIN32_LEAN_AND_MEAN
-#include "windows.h"
+#include <windows.h>
+#include <format>
+
 
 namespace Tmpl8
 {
@@ -31,7 +34,7 @@ namespace Tmpl8
 	int enemiesSpawned = 0;
 	int currentWaveTime = 30 * 165;	//How many seconds for the wave to start, 30 * 165 cuz my screen is 165hz, so 30 seconds.
 	int waveTime = 0;				//How many seconds for the initial wave to start, 5 * 165 cuz my screen is 165hz, so 5 seconds.
-	int spawnDelay = 10;			//Not every enemy needs to spawn instantly, some delay between em.
+	int spawnDelay = 0;			//Not every enemy needs to spawn instantly, some delay between em.
 
 	float nearestEnemyDist = 9999;
 	int nearestEnemyID = 0;
@@ -50,6 +53,8 @@ namespace Tmpl8
 	Sprite sprite_upgrade_damage(new Surface("assets/upgrade_damage.png"), 2);
 	Sprite sprite_upgrade_healthspeed(new Surface("assets/upgrade_healthspeed.png"), 2);
 	Sprite sprite_upgrade_attackspeed(new Surface("assets/upgrade_attackspeed.png"), 2);
+	Sprite sprite_cursor(new Surface("assets/cursor.png"), 1);
+
 
 	//Handles animation speed for xp rupees
 	int spriteSpeed = 8; //Higher is slower, every 8 frames, go next.
@@ -84,7 +89,7 @@ namespace Tmpl8
 
 			// Handle Waves spawning and whatnot.
 			if (waveTime > 0) { waveTime--; }
-			if ((waveTime == 0 && spawnDelay == 0) && (enemiesSpawned == waveNumber * 10)) { waveNumber++; waveTime = 1 * 165; }
+			if ((waveTime == 0 && spawnDelay == 0) && (enemiesSpawned == waveNumber * 10)) { waveNumber++; waveTime = 15 * 165; }
 			if (spawnDelay > 0) { spawnDelay--; }
 
 			// Handle player attacks
@@ -106,23 +111,7 @@ namespace Tmpl8
 
 			if (player.isDead())
 			{
-				player.Refresh(); //refresh the player stats
-
-				// refresh the enemies
-				for (int i = 0; i < enemyAmount; i++)
-				{
-					enemy[i].alive = false;
-					enemyAliveCount = 0;		//Enemies that are alive will be counted
-					waveNumber = 0;				//Which number wave of enemies we're on!
-					enemiesSpawned = 0;
-					waveTime = 1 * 165;			//How many seconds for the wave to start, 30 * 165 cuz my screen is 165hz, so 30 seconds.
-					spawnDelay = 50;			//Not every enemy needs to spawn instantly, some delay between em.
-				}
-				// refresh the XP
-				for (int j = 0; j < enemyAmount * 3; j++)
-				{
-					pickup_exp[j].alive = false;
-				}
+				gamePaused = 3;
 			}
 
 			int redness = round(255 * player.healthpercentage);
@@ -147,7 +136,7 @@ namespace Tmpl8
 			{
 				if (enemy[i].isAlive())
 				{
-					for (int j = 0; j < enemyAmount; j++) //Checks distance between all enemies entities, includes itself for now
+					for (int j = 0; j < enemyAmount; j++) //Loop between all enemies that are alive, check collision if its not me.
 					{
 						if (i != j)
 						{
@@ -168,6 +157,14 @@ namespace Tmpl8
 								pickup_exp[j].alive = true;
 								xpDropped = true;
 							}
+						}
+					}
+
+					if (enemy[i].recentlyDamaged-- > 0)
+					{
+						if (enemy[i].x < ScreenWidth && enemy[i].y < ScreenHeight && enemy[i].y > 32 && enemy[i].x > 32)
+						{
+							screen->Print(std::format("{}", enemy[i].recentDamage), enemy[i].x+5, (enemy[i].y-40)+(enemy[i].recentlyDamaged/6), 0x000000, 4);
 						}
 					}
 
@@ -253,7 +250,7 @@ namespace Tmpl8
 					if ((enemiesSpawned < waveNumber * 10) && spawnDelay <= 0) //If there are enemies needing 2 be spawned.
 					{
 						enemy[i].Refresh();
-						spawnDelay = 200 + IRand(200);
+						spawnDelay = 100+IRand(150)-waveNumber*10;
 						enemiesSpawned++;
 						//Sets Alive to true and repositions the enemy
 					}
@@ -277,7 +274,10 @@ namespace Tmpl8
 					{
 						if (projectile[i].Collision(enemy[j].x, enemy[j].y) && enemy[j].alive == true) // If I collide with an enemy, then deal damage and fizzle
 						{
-							enemy[j].health -= projectile[i].damage * player.damageMultiplier;
+							int recentDamage = projectile[i].damage * player.damageMultiplier;
+							enemy[j].health -= recentDamage;
+							enemy[j].recentDamage = recentDamage;
+							enemy[j].recentlyDamaged = 330;
 							projectile[i].alive = false;
 						}
 					}
@@ -405,7 +405,6 @@ namespace Tmpl8
 				}
 			}
 
-
 			//Draw experience bar on top of screen.
 			if (player.experience > 0 && player.level > 0)
 			{
@@ -421,6 +420,7 @@ namespace Tmpl8
 			{
 				gamePaused = 0;
 			}
+			sprite_cursor.Draw(screen, mousex, mousey);
 		}
 		//levelup pause
 		if (gamePaused == 2)
@@ -491,6 +491,35 @@ namespace Tmpl8
 				}
 			}
 			else { sprite_upgrade_healthspeed.SetFrame(0); }
+
+			sprite_cursor.Draw(screen, mousex, mousey);
+		}
+		//deathscreen pause
+		if (gamePaused == 3)
+		{
+			sprite_startscreen.Draw(screen, (ScreenWidth / 2) - (sprite_startscreen.GetWidth() / 2), (ScreenHeight / 2) - (sprite_startscreen.GetHeight() / 2));
+			if ((GetKeyState(VK_LBUTTON) & 0x8000) != 0)
+			{
+				player.Refresh(); //refresh the player stats
+
+				// yeetus deleetus the enemies
+				for (int i = 0; i < enemyAmount; i++)
+				{
+					enemy[i].alive = false;
+				}
+				enemyAliveCount = 0;		//Enemies that are alive will be counted
+				waveNumber = 0;				//Which number wave of enemies we're on!
+				enemiesSpawned = 0;			//Enemies spawned 0.
+				waveTime = 10 * 165;		//How many seconds for the wave to start, 30 * 165 cuz my screen is 165hz, so 30 seconds.
+
+				// yeetus deleetus the XP gems
+					for (int j = 0; j < enemyAmount * 3; j++)
+				{
+					pickup_exp[j].alive = false;
+				}
+					gamePaused = 0;
+			}
+			sprite_cursor.Draw(screen, mousex, mousey);
 		}
 	}
-}
+};

@@ -9,7 +9,7 @@
 
 namespace Tmpl8 {
 
-void NotifyUser( char* s );
+void NotifyUser( const char* s );
 char Surface::s_Font[51][5][6];	
 bool Surface::fontInitialized = false;
 
@@ -34,7 +34,7 @@ Surface::Surface( int a_Width, int a_Height ) :
 	m_Buffer = static_cast<Pixel*>(MALLOC64( (unsigned int)a_Width * (unsigned int)a_Height * sizeof( Pixel )));
 }
 
-Surface::Surface( char* a_File )
+Surface::Surface( const char* a_File )
 {
 	FILE* f = fopen( a_File, "rb" );
 	if (!f) 
@@ -48,7 +48,7 @@ Surface::Surface( char* a_File )
 	LoadImage( a_File );
 }
 
-void Surface::LoadImage( char* a_File )
+void Surface::LoadImage( const char* a_File )
 {
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 	fif = FreeImage_GetFileType( a_File, 0 );
@@ -90,29 +90,43 @@ void Surface::Clear( Pixel a_Color )
 	for ( int i = 0; i < s; i++ ) m_Buffer[i] = a_Color;
 }
 
-void Surface::Centre( char* a_String, int y1, Pixel color )
+void Surface::Centre( const char* a_String, int y1, Pixel color )
 {
 	int x = (m_Width - (int)strlen( a_String ) * 6) / 2;
-	Print( a_String, x, y1, color );
+	Print( a_String, x, y1, color , 1);
 }
 
-void Surface::Print( char* a_String, int x1, int y1, Pixel color )
+int clamp(int x, int min, int max)
 {
-	if (!fontInitialized) 
+	return x < min ? min : x > max ? max : x;
+}
+
+void Surface::Print(std::string_view a_String, int x1, int y1, Pixel color, int width = 1)
+{ // Fat text from someone of the 3D GEP Discord
+	if (!fontInitialized)
 	{
 		InitCharset();
 		fontInitialized = true;
 	}
+	x1 = clamp(x1, 0, ScreenWidth - 1);
+	y1 = clamp(y1, 0, ScreenHeight - 1);
 	Pixel* t = m_Buffer + x1 + y1 * m_Pitch;
-	for ( int i = 0; i < (int)(strlen( a_String )); i++, t += 6 )
-	{	
+	for (int i = 0; i < (int)(std::size(a_String)); i++, t += 6 * width)
+	{
 		long pos = 0;
 		if ((a_String[i] >= 'A') && (a_String[i] <= 'Z')) pos = s_Transl[(unsigned short)(a_String[i] - ('A' - 'a'))];
-													 else pos = s_Transl[(unsigned short)a_String[i]];
+		else pos = s_Transl[(unsigned short)a_String[i]];
 		Pixel* a = t;
 		char* c = (char*)s_Font[pos];
-		for ( int v = 0; v < 5; v++, c++, a += m_Pitch ) 
-			for ( int h = 0; h < 5; h++ ) if (*c++ == 'o') *(a + h) = color, *(a + h + m_Pitch) = 0;
+		for (int v = 0; v < 5; v++, c++, a += width * m_Pitch) {
+			for (int h = 0; h < 5 * width; h += width) {
+				if (*c++ == 'o') {
+					for (int w = 0; w < width; w++)
+						for (int j = 0; j < width; j++)
+							a[w + h + j * m_Pitch] = color, a[w + h + (j + 1) * m_Pitch] = 0;
+				}
+			}
+		}
 	}
 }
 
@@ -197,11 +211,6 @@ void Surface::Box( int x1, int y1, int x2, int y2, Pixel c )
 	Line( (float)x1, (float)y1, (float)x1, (float)y2, c );
 }
 
-int clamp(int x, int min, int max)
-{
-	return x < min ? min : x > max ? max : x;
-}
-
 void Surface::Bar( int x1, int y1, int x2, int y2, Pixel c )
 {
 	x1 = clamp(x1, 0, ScreenWidth - 1);
@@ -275,7 +284,7 @@ void Surface::BlendCopyTo( Surface* a_Dst, int a_X, int a_Y )
 	}
 }
 
-void Surface::SetChar( int c, char* c1, char* c2, char* c3, char* c4, char* c5 )
+void Surface::SetChar( int c, const char* c1, const char* c2, const char* c3, const char* c4, const char* c5 )
 {
 	strcpy( s_Font[c][0], c1 );
 	strcpy( s_Font[c][1], c2 );
@@ -466,7 +475,7 @@ void Sprite::InitializeStartData()
 	}
 }
 
-Font::Font( char* a_File, char* a_Chars )
+Font::Font( const char* a_File, const char* a_Chars )
 {
 	m_Surface = new Surface( a_File );
 	Pixel* b = m_Surface->GetBuffer();
@@ -509,7 +518,7 @@ Font::~Font()
 	delete m_Offset;
 }
 
-int Font::Width( char* a_Text )
+int Font::Width( const char* a_Text )
 {
 	int w = 0;
 	unsigned int i;
@@ -521,13 +530,13 @@ int Font::Width( char* a_Text )
 	return w;
 }
 
-void Font::Centre( Surface* a_Target, char* a_Text, int a_Y )
+void Font::Centre( Surface* a_Target, const char* a_Text, int a_Y )
 {
 	int x = (a_Target->GetPitch() - Width( a_Text )) / 2;
 	Print( a_Target, a_Text, x, a_Y );
 }
  
-void Font::Print( Surface* a_Target, char* a_Text, int a_X, int a_Y, bool clip )
+void Font::Print( Surface* a_Target, const char* a_Text, int a_X, int a_Y, bool clip )
 {
 	Pixel* b = a_Target->GetBuffer() + a_X + a_Y * a_Target->GetPitch();
 	Pixel* s = m_Surface->GetBuffer();

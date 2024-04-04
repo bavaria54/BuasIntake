@@ -4,7 +4,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
 {
     class Enemy
     {
-    public: //Public I guess, maybe private is better idk?
+    public:
         Enemy()
         {
             x = 0;
@@ -15,6 +15,8 @@ namespace Tmpl8  //Everything else does this, I copy it.
             screenpos = IRand(4); //Random value so I know where to put the enemy.
             alive = false;
             dist = 0.0f;
+            recentlyDamaged = 0;
+            recentDamage = 0;
         }
         void Reposition();
         void Refresh();
@@ -23,6 +25,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
         void isKilled();
         void Move(int player_drawx, int player_drawy);
         bool isAlive();
-        float x; float y; float health; float damage; int screenpos; bool alive; float dist; float maxhealth;// so my variables know what they are
+        void DrawDamage(int recentDamage);
+        float x; float y; float health; float damage; int screenpos; bool alive; float dist; float maxhealth; int recentlyDamaged; int recentDamage;// so my variables know what they are
     };
 }

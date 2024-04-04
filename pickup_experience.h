@@ -4,7 +4,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
 {
     class Pickup_Exp
     {
-    public: //Public I guess, maybe private is better idk?
+    public:
         Pickup_Exp()
         {
             x = 0;

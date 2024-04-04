@@ -144,7 +144,7 @@ mat4 mat4::rotatez( const float a )
 	return M;
 }
 
-void NotifyUser( char* s )
+void NotifyUser( const char* s )
 {
 	HWND hApp = FindWindow(nullptr, TemplateVersion);
 	MessageBox( hApp, s, "ERROR", MB_OK );
