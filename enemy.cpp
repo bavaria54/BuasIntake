@@ -28,7 +28,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		}
     }
 
-	void Enemy::Refresh()
+	void Enemy::Refresh() // Refresh makes the stats back to their natural values
 	{
 		health = 100;
 		alive = true;
@@ -36,7 +36,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		Reposition();
 	}
 
-	void Enemy::Collision(Enemy &enemy)
+	void Enemy::Collision(Enemy &enemy) // If i'm too close to another Enemy then we push eachother away from another
 	{
 		float jdx = x - enemy.x, jdy = y - enemy.y;
 		float jdist = sqrtf(jdx * jdx + jdy * jdy);
@@ -54,14 +54,14 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		}
 	}
 
-	void Enemy::Move(int player_drawx, int player_drawy, float deltaTime)
+	void Enemy::Move(int player_drawx, int player_drawy, float deltaTime) // Move towards player, scales with deltaTime so FPS doesnt give slowdowns/speedups
 	{
 		float dx = x - player_drawx, dy = y - player_drawy;
 		dist = sqrtf(dx * dx + dy * dy);
 		x -= (dx / dist) * deltaTime / 5, y -= (dy / dist) * deltaTime / 5;
 	}
 
-	float Enemy::GetDistance(int targetX, int targetY)
+	float Enemy::GetDistance(int targetX, int targetY) // Calculates distance using pythagoras theorem
 	{
 		float dx = x - targetX, dy = y - targetY;
 		float dist = sqrtf(dx * dx + dy * dy);

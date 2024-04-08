@@ -101,7 +101,7 @@ int clamp(int x, int min, int max)
 	return x < min ? min : x > max ? max : x;
 }
 
-void Surface::Print(std::string_view a_String, int x1, int y1, Pixel color, int width = 1)
+void Surface::Print(std::string_view a_String, int x1, int y1, Pixel color, int width = 1) // Jeremiah helped me to change this function so I could draw variables
 {
 	if (!fontInitialized)
 	{
@@ -134,6 +134,8 @@ void Surface::Print(std::string_view a_String, int x1, int y1, Pixel color, int 
 		if (bufferIndex >= 0 && bufferIndex < ScreenWidth * ScreenHeight) { // Ensure within buffer bounds
 		a[w + h + j * m_Pitch] = color;}}}}}}}
 		}
+
+		// Sadly I had to resort to using ChatGPT 3.5 to make my game not crash by drawing outside the frame buffer, I couldnt get it to work on my own.
 	}
 }
 

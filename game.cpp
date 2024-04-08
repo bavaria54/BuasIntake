@@ -305,21 +305,21 @@ namespace Tmpl8
 					{
 						sprite_pickup_exp.Draw(screen, pickup_exp[i].x, pickup_exp[i].y);	// Draws entity
 
-						if (pickup_exp[i].GetDistance() < player.pickupRange) //If player ever got close, start moving the xp to the player
+						if (pickup_exp[i].GetDistance() < player.pickupRange) //If player ever got close, start moving the XP to the player
 						{
 							pickup_exp[i].magnet = true;
 							if (pickup_exp[i].GetDistance() < 16) {
 								pickup_exp[i].isPickedUp(); player.experience += pickup_exp[i].xpValue; pickup_exp[i].magnet = false;
 								collectablesCollected++;
-							} //If player touches xp, it picks the XP up.
+							} //If player gets close enough to XP, it picks the XP up.
 						}
 
-						if (pickup_exp[i].magnet == true) // Makes EXP fly towards player
+						if (pickup_exp[i].magnet == true) // Makes XP fly towards player
 						{
 							pickup_exp[i].isMagneted();
 						}
 
-						//Move the XP according to input
+						// Move the XP according to input
 						if (GetAsyncKeyState(VK_RIGHT))
 						{pickup_exp[i].x -= player.speed * deltaTime / 5;}
 						if (GetAsyncKeyState(VK_LEFT))
@@ -339,7 +339,7 @@ namespace Tmpl8
 							pickup_exp[i].x = IRand(ScreenWidth);
 							pickup_exp[i].y = IRand(ScreenHeight);
 							keyUp++;
-						}
+						} // Pressing SPACE spawns XP gems randomly on my screen
 						else
 						{
 							if (!GetAsyncKeyState(VK_SPACE))
