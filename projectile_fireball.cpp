@@ -8,9 +8,9 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		dist = sqrtf(dx * dx + dy * dy);
 	}
 
-	void Projectile_Fireball::Move()
+	void Projectile_Fireball::Move(float deltaTime)
 	{
-		x -= (dx / dist) * speed, y -= (dy / dist) * speed;
+		x -= ((dx / dist) * speed) * deltaTime / 5, y -= ((dy / dist) * speed) * deltaTime / 5;
 	}
 
 	bool Projectile_Fireball::Collision(int targetX, int targetY)

@@ -9,12 +9,12 @@ namespace Tmpl8
 		currenthealth = maxhealth;
 		healthpercentage = (currenthealth / maxhealth);
 		healthcolor = 0;
-		speed = 1.8;
+		speed = 1.3;
 		level = 1;
 		experience = 0;
 		attackSpeed = 1.0f;
 		attackFrame = 0;
-		attackInterval = 165 * 1;
+		attackInterval = 165 * 2;
 		damageMultiplier = 1.0f;
 	}
 

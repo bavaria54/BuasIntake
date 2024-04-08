@@ -15,11 +15,11 @@ namespace Tmpl8  //Everything else does this, I copy it.
             currenthealth = maxhealth;
             healthpercentage = (currenthealth / maxhealth);
             healthcolor = 0;
-            speed = 1.8;
+            speed = 1.3;
             level = 1;
             experience = 0;
             attackSpeed = 1.0f;
-            attackFrame = 0;
+            attackFrame = 0.0f;
             attackInterval = 165*2;
             pickupRange = 150;
             damageMultiplier = 1.0f;
@@ -27,6 +27,6 @@ namespace Tmpl8  //Everything else does this, I copy it.
         void Refresh();
         void LevelUp(int levelupID);
         bool isDead();
-        int x; int y; float maxhealth; float currenthealth; float damageMultiplier; float healthpercentage; int healthcolor; float speed; int level; float experience; float attackSpeed; int attackFrame; int attackInterval; int pickupRange;// so my variables know what they are
+        int x; int y; float maxhealth; float currenthealth; float damageMultiplier; float healthpercentage; int healthcolor; float speed; int level; float experience; float attackSpeed; float attackFrame; int attackInterval; int pickupRange;// so my variables know what they are
     };
 }

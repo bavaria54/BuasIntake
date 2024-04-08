@@ -17,7 +17,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
             dist = 3.0f;
         }
         float dx; float dy; float dist; int speed; float x; float y; int damage; bool alive;
-        void Move();
+        void Move(float deltaTime);
         bool Collision(int targetX, int targetY);
         void SetDirection(float nearestEnemyX, float nearestEnemyY);
     };

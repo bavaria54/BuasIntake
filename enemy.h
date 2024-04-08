@@ -23,9 +23,8 @@ namespace Tmpl8  //Everything else does this, I copy it.
         void Collision(Enemy &enemy);
         float GetDistance(int targetX, int targetY);
         void isKilled();
-        void Move(int player_drawx, int player_drawy);
+        void Move(int player_drawx, int player_drawy, float deltaTime);
         bool isAlive();
-        void DrawDamage(int recentDamage);
         float x; float y; float health; float damage; int screenpos; bool alive; float dist; float maxhealth; int recentlyDamaged; int recentDamage;// so my variables know what they are
     };
 }

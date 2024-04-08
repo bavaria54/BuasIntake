@@ -102,30 +102,37 @@ int clamp(int x, int min, int max)
 }
 
 void Surface::Print(std::string_view a_String, int x1, int y1, Pixel color, int width = 1)
-{ // Fat text from someone of the 3D GEP Discord
+{
 	if (!fontInitialized)
 	{
 		InitCharset();
 		fontInitialized = true;
 	}
+	// Ensure x1 and y1 are within buffer bounds
 	x1 = clamp(x1, 0, ScreenWidth - 1);
 	y1 = clamp(y1, 0, ScreenHeight - 1);
 	Pixel* t = m_Buffer + x1 + y1 * m_Pitch;
-	for (int i = 0; i < (int)(std::size(a_String)); i++, t += 6 * width)
+
+	for (int i = 0; i < (int)(std::size(a_String)) && (x1 + 5 * width * (i + 1)) <= ScreenWidth; i++, t += 6 * width)
 	{
 		long pos = 0;
-		if ((a_String[i] >= 'A') && (a_String[i] <= 'Z')) pos = s_Transl[(unsigned short)(a_String[i] - ('A' - 'a'))];
-		else pos = s_Transl[(unsigned short)a_String[i]];
+		if ((a_String[i] >= 'A') && (a_String[i] <= 'Z'))
+			pos = s_Transl[(unsigned short)(a_String[i] - ('A' - 'a'))];
+		else
+			pos = s_Transl[(unsigned short)a_String[i]];
+
 		Pixel* a = t;
 		char* c = (char*)s_Font[pos];
-		for (int v = 0; v < 5; v++, c++, a += width * m_Pitch) {
-			for (int h = 0; h < 5 * width; h += width) {
-				if (*c++ == 'o') {
-					for (int w = 0; w < width; w++)
-						for (int j = 0; j < width; j++)
-							a[w + h + j * m_Pitch] = color, a[w + h + (j + 1) * m_Pitch] = 0;
-				}
-			}
+
+		for (int v = 0; v < 5; v++, c++, a += width * m_Pitch)
+		{if (y1 + v * width >= 0 && y1 + v * width < ScreenHeight) // Ensure within vertical buffer bounds
+		{for (int h = 0; h < 5 * width; h += width){
+		if (x1 + h >= 0 && x1 + h < ScreenWidth) { // Ensure within horizontal buffer bounds
+		if (*c++ == 'o'){for (int w = 0; w < width; w++){
+		for (int j = 0; j < width; j++){
+		int bufferIndex = (x1 + h + w) + (y1 + v * width + j) * m_Pitch;
+		if (bufferIndex >= 0 && bufferIndex < ScreenWidth * ScreenHeight) { // Ensure within buffer bounds
+		a[w + h + j * m_Pitch] = color;}}}}}}}
 		}
 	}
 }

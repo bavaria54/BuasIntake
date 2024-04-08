@@ -32,6 +32,7 @@ namespace Tmpl8  //Everything else does this, I copy it.
 	{
 		health = 100;
 		alive = true;
+		recentlyDamaged = 0;
 		Reposition();
 	}
 
@@ -53,11 +54,11 @@ namespace Tmpl8  //Everything else does this, I copy it.
 		}
 	}
 
-	void Enemy::Move(int player_drawx, int player_drawy)
+	void Enemy::Move(int player_drawx, int player_drawy, float deltaTime)
 	{
 		float dx = x - player_drawx, dy = y - player_drawy;
 		dist = sqrtf(dx * dx + dy * dy);
-		x -= dx / dist, y -= dy / dist;
+		x -= (dx / dist) * deltaTime / 5, y -= (dy / dist) * deltaTime / 5;
 	}
 
 	float Enemy::GetDistance(int targetX, int targetY)
