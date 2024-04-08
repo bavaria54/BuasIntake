@@ -17,11 +17,14 @@
 
 namespace Tmpl8
 {
-	bool debug = true;
+	bool debug = false; // if true it shows some extra variables and some extra visuals.
 
 	int gamePaused = 1;
 	const int maxFPS = 300;
 	float elapsedTicks = 0;
+	int collectablesCollected = 0;
+	int enemiesDefeated = 0;
+	float timeSurvived = 0;
 
 	Player player; //Creates player variable player
 
@@ -37,8 +40,8 @@ namespace Tmpl8
 	int waveNumber = 0;				//Which wave of enemies we're on!
 	int enemiesSpawned = 0;
 	int currentWaveTime = 30 * maxFPS;	//How many seconds for the wave to start, 30 * FPS
-	int waveTime = 0;					//How many seconds for the initial wave to start, 5 * 165 cuz my screen is 165hz, so 5 seconds.
-	int spawnDelay = 0;					//Not every enemy needs to spawn instantly, some delay between em.
+	float waveTime = 0;					//How many seconds for the initial wave to start, 5 * 165 cuz my screen is 165hz, so 5 seconds.
+	float spawnDelay = 0;					//Not every enemy needs to spawn instantly, some delay between em.
 
 	float nearestEnemyDist = 9999;
 	int nearestEnemyID = 0;
@@ -53,6 +56,7 @@ namespace Tmpl8
 	Sprite sprite_pickup_exp(new Surface("assets/BlueExpRupee.tga"), 12);
 	Sprite sprite_projectile_fireball(new Surface("assets/fireball.tga"), 1);
 	Sprite sprite_startscreen(new Surface("assets/start_screen.tga"), 1);
+	Sprite sprite_deathscreen(new Surface("assets/death_screen.tga"), 1);
 	Sprite sprite_levelupscreen(new Surface("assets/levelup_screen.tga"), 1);
 	Sprite sprite_upgrade_damage(new Surface("assets/upgrade_damage.png"), 2);
 	Sprite sprite_upgrade_healthspeed(new Surface("assets/upgrade_healthspeed.png"), 2);
@@ -93,20 +97,16 @@ namespace Tmpl8
 		// gameloop
 		if (gamePaused == 0)
 			{
-				// Draw wavenumber
-				screen->Print(std::format("Wave: {}", waveNumber), 12, 20, 0x000000, 2);
-
-				// Makes the sprite of XP animate (Spritespeed does not scale with *deltaTime/5)
+				// Makes the sprite of XP animate
 				if (spriteCycle > spriteSpeed) { spriteNum++;  spriteCycle = 0; }
 				spriteCycle += 1 * deltaTime / 5;
-
 				if (spriteNum > 11) { spriteNum = 0; }
 				sprite_pickup_exp.SetFrame(spriteNum);
 
-				// Handle Waves spawning and whatnot.
+				// Handle Waves spawning
 				if (waveTime > 0) { waveTime -= 1*deltaTime / 5; }
-				if ((waveTime == 0 && spawnDelay == 0) && (enemiesSpawned == waveNumber * 10)) { waveNumber++; waveTime = 30 * 165; }
-				if (spawnDelay > 0) { spawnDelay--; }
+				if (waveTime <= 0 && spawnDelay <= 0) { waveNumber++; waveTime = 30 * 165; }
+				if (spawnDelay > 0) { spawnDelay -= 1*deltaTime/5; }
 
 				// Handle player attacks
 				player.attackFrame += player.attackSpeed * deltaTime / 5;
@@ -119,6 +119,8 @@ namespace Tmpl8
 
 				if (GetAsyncKeyState(VK_RIGHT)) { sprite_player.SetFrame(0); } // Set Sprite to right
 				if (GetAsyncKeyState(VK_LEFT)) { sprite_player.SetFrame(1); } // Set Sprite to left
+
+				timeSurvived += deltaTime;
 
 				if (player.isDead())
 				{
@@ -170,14 +172,16 @@ namespace Tmpl8
 									pickup_exp[j].y = enemy[i].y + 24;
 									pickup_exp[j].alive = true;
 									xpDropped = true;
+									enemiesDefeated++;
 								}
 							}
 						}
 
 						// Draw damage number above enemy when damaged
-						if (enemy[i].recentlyDamaged-- > 0)
+						if (enemy[i].recentlyDamaged > 0)
 						{
 							screen->Print(std::format("{}", enemy[i].recentDamage), enemy[i].x + 5, (enemy[i].y - 32) + (enemy[i].recentlyDamaged / 20), 0x000000, 4);
+							enemy[i].recentlyDamaged -= 1 * deltaTime / 5;
 						}
 
 						if (enemy[nearestEnemyID].alive == false)
@@ -306,6 +310,7 @@ namespace Tmpl8
 							pickup_exp[i].magnet = true;
 							if (pickup_exp[i].GetDistance() < 16) {
 								pickup_exp[i].isPickedUp(); player.experience += pickup_exp[i].xpValue; pickup_exp[i].magnet = false;
+								collectablesCollected++;
 							} //If player touches xp, it picks the XP up.
 						}
 
@@ -353,13 +358,19 @@ namespace Tmpl8
 				screen->Print(std::format("Level: {}", player.level), 12, 3, 0x000000, 2);
 				screen->Box(0, 0, ScreenWidth - 1, 17, 0x000000); //Draw XP bar black outline
 
+				// Draw wavenumber & Collectibles
+				screen->Print(std::format("Wave: {}", waveNumber), 12, 20, 0x000000, 2);
+				
+
 				// Debug visuals
 				if (debug == true)
 				{
 					screen->Box(enemy[nearestEnemyID].x, enemy[nearestEnemyID].y, enemy[nearestEnemyID].x + 64, enemy[nearestEnemyID].y + 64, 0x000000); //Draws a box for nearest target
 					screen->Bar(player_drawx, player_drawy - 26, player_drawx + (player.attackInterval - player.attackFrame), player_drawy - 18, 0x00ffff);
-
-					screen->Print(std::format("Enemies Spawned: {}", enemiesSpawned), 12, 32, 0x000000, 2);
+					screen->Print(std::format("Collected Gems: {}", collectablesCollected), 12, 32, 0x000000, 2);
+					screen->Print(std::format("Enemies Spawned so far: {}", enemiesSpawned), 12, 44, 0x000000, 2);
+					screen->Print(std::format("Wave Delay: {}", static_cast<int>(waveTime)), 12, 56, 0x000000, 2);
+					screen->Print(std::format("Enemy Spawn Delay: {}", static_cast<int>(spawnDelay)), 12, 68, 0x000000, 2);
 				}
 			}
 		//startscreen pause
@@ -447,7 +458,7 @@ namespace Tmpl8
 		//deathscreen pause
 		if (gamePaused == 3)
 			{
-				sprite_startscreen.Draw(screen, (ScreenWidth / 2) - (sprite_startscreen.GetWidth() / 2), (ScreenHeight / 2) - (sprite_startscreen.GetHeight() / 2));
+				sprite_deathscreen.Draw(screen, (ScreenWidth / 2) - (sprite_deathscreen.GetWidth() / 2), (ScreenHeight / 2) - (sprite_deathscreen.GetHeight() / 2));
 				if ((GetKeyState(VK_LBUTTON) & 0x8000) != 0)
 				{
 					player.Refresh(); //refresh the player stats
@@ -460,7 +471,10 @@ namespace Tmpl8
 					enemyAliveCount = 0;		//Enemies that are alive will be counted
 					waveNumber = 1;				//Which number wave of enemies we're on!
 					enemiesSpawned = 0;			//Enemies spawned 0.
-					waveTime = 10 * 165;		//How many seconds for the wave to start, 30 * 165 cuz my screen is 165hz, so 30 seconds.
+					waveTime = 10 * 165;		//How many seconds for the wave to start
+					collectablesCollected = 0;
+					enemiesDefeated = 0;
+					timeSurvived = 0;
 
 					// yeetus deleetus the XP gems
 					for (int j = 0; j < enemyAmount * 3; j++)
@@ -469,7 +483,17 @@ namespace Tmpl8
 					}
 					gamePaused = 0;
 				}
-				sprite_cursor.Draw(screen, mousex, mousey);
+				sprite_cursor.Draw(screen, mousex, mousey); 
+
+				// Draw all the stats in the deathscreen
+				screen->Print(std::format("Player level:"), 120, 500, 0x000000, 5); screen->Print(std::format("{}", player.level), 660, 500, 0x000000, 5);
+				screen->Print(std::format("Player speed:"), 120, 550, 0x000000, 5); screen->Print(std::format("{:.01f}", player.speed), 660, 550, 0x000000, 5);
+				screen->Print(std::format("Player attspd:"), 120, 600, 0x000000, 5); screen->Print(std::format("{:.01f}", player.attackSpeed), 660, 600, 0x000000, 5);
+				screen->Print(std::format("Player health:"), 120, 650, 0x000000, 5); screen->Print(std::format("{}", player.maxhealth), 660, 650, 0x000000, 5);
+				screen->Print(std::format("Enemies defeated:"), 120, 700, 0x000000, 5); screen->Print(std::format("{}", enemiesDefeated), 660, 700, 0x000000, 5);
+				screen->Print(std::format("Wave reached:"), 120, 750, 0x000000, 5); screen->Print(std::format("{}", waveNumber), 660, 750, 0x000000, 5);
+				screen->Print(std::format("Fireball damage:"), 120, 800, 0x000000, 5); screen->Print(std::format("{:.01f}", 35*player.damageMultiplier), 660, 800, 0x000000, 5);
+				screen->Print(std::format("Time Surived:"), 120, 850, 0x000000, 5); screen->Print(std::format("{:.01f} seconds", timeSurvived/1000), 660, 850, 0x000000, 5);
 			}
 
 		//Calculate FPS over last fpsAveragePrecision amount of frames

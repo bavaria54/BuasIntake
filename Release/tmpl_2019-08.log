@@ -1,3 +1,32 @@
-﻿  projectile_fireball.cpp
+﻿  game.cpp
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(130,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(131,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(144,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(183,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(183,75): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(233,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(233,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(237,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(237,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(245,38): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(257,84): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(257,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(267,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(267,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(269,26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(306,68): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(306,51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(339,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(340,31): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(356,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(368,122): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(368,92): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(368,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(368,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(369,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(410,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(410,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(411,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Tutotorial projects BUAS\18. My Own Game\game.cpp(411,22): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
      Creating library C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64.lib and object C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64.exp
   tmpl_2019-08.vcxproj -> C:\Tutotorial projects BUAS\18. My Own Game\tmpl_2019-08_x64.exe

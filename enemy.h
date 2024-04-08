@@ -25,6 +25,6 @@ namespace Tmpl8  //Everything else does this, I copy it.
         void isKilled();
         void Move(int player_drawx, int player_drawy, float deltaTime);
         bool isAlive();
-        float x; float y; float health; float damage; int screenpos; bool alive; float dist; float maxhealth; int recentlyDamaged; int recentDamage;// so my variables know what they are
+        float x; float y; float health; float damage; int screenpos; bool alive; float dist; float maxhealth; float recentlyDamaged; int recentDamage;// so my variables know what they are
     };
 }
